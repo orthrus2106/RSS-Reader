@@ -17,6 +17,8 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "bootstrap": "^5.3.6"
+    "bootstrap": "^5.3.6",
+    "on-change": "^5.0.1",
+    "yup": "^1.6.1"
   }
 }
