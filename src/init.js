@@ -16,7 +16,7 @@ export default async () => {
 
   await i18n.init({
     lng: state.language,
-    debug: true,
+    debug: false,
     resources,
   });
 
@@ -29,20 +29,28 @@ export default async () => {
     },
   });
 
-  const watchedState = createWatchedState(state);
+  const watchedState = createWatchedState(state, i18n);
   const schema = yup.string()
-    .required()
-    .url()
-    .notOneOf(watchedState.feeds);
+    .required(
+      'required',
+    )
+    .url(
+      'invalidUrl',
+    )
+    .test(
+      'is-invalid',
+      'alreadyExists',
+      (value) => !state.feeds.includes(value.trim()),
+    );
 
   const form = document.querySelector('form');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    const inputData = formData.get('input');
+    const inputData = formData.get('input').trim();
     schema.validate(inputData)
       .then(() => {
-        watchedState.feeds.push(inputData);
+        watchedState.feeds.push(inputData.trim());
         watchedState.uiState.status = 'valid';
         watchedState.uiState.error = null;
         form.elements.input.value = '';
