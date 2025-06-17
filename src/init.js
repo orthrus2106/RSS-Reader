@@ -1,20 +1,39 @@
 import * as yup from 'yup';
+import i18nextInstance from 'i18next';
 import createWatchedState from './view';
+import resources from './locales/index';
 
-export default () => {
+export default async () => {
   const state = {
     uiState: {
       error: null,
       status: 'valid', // invalid, sending
     },
     feeds: [],
+    language: 'ru',
   };
+  const i18n = i18nextInstance.createInstance();
+
+  await i18n.init({
+    lng: state.language,
+    debug: true,
+    resources,
+  });
+
+  yup.setLocale({
+    string: {
+      url: i18n.t('errors.invalidUrl'),
+    },
+    mixed: {
+      notOneOf: i18n.t('errors.alreadyExists'),
+    },
+  });
 
   const watchedState = createWatchedState(state);
   const schema = yup.string()
     .required()
-    .url('Ссылка должна быть валидным URL')
-    .test('is-unique', 'RSS уже существует', (value) => !watchedState.feeds.includes(value));
+    .url()
+    .notOneOf(watchedState.feeds);
 
   const form = document.querySelector('form');
   form.addEventListener('submit', (e) => {
