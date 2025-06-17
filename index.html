@@ -21,8 +21,11 @@
                     type="text" 
                     id="url-input" 
                     name="input"
-                    class="form-control 
-                    w-100" 
+                    required
+                    autocomplete="off"
+                    aria-label="url"
+                    autofocus
+                    class="form-control w-100"
                     placeholder="ссылка RSS">
                     <label for="url-input">Ссылка RSS</label>
                   </div>
@@ -33,7 +36,7 @@
               </div>
             </form>
             <p class="mt-2 mb-0 text-muted">Пример: https://lorem-rss.hexlet.app/feed</p>
-            <p class="feedback m-0 position-absolute small text-danger"></p>
+            <p class="feedback m-0 position-absolute small text-danger" id="feedback"></p>
           </div>
         </div>
       </section>

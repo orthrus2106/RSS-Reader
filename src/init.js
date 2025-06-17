@@ -1,21 +1,20 @@
 import * as yup from 'yup';
-import onChange from 'on-change';
-import view from './view';
-import render from './render';
+import createWatchedState from './view';
 
 export default () => {
   const state = {
     uiState: {
       error: null,
-      status: 'filling', // valid, invalid, sending
+      status: 'valid', // invalid, sending
     },
     feeds: [],
   };
-  const watchedState = onChange(state, view);
+
+  const watchedState = createWatchedState(state);
   const schema = yup.string()
     .required()
     .url('Ссылка должна быть валидным URL')
-    .test('is-unique', 'RSS уже существует', (value) => !state.feeds.includes(value));
+    .test('is-unique', 'RSS уже существует', (value) => !watchedState.feeds.includes(value));
 
   const form = document.querySelector('form');
   form.addEventListener('submit', (e) => {
@@ -24,14 +23,14 @@ export default () => {
     const inputData = formData.get('input');
     schema.validate(inputData)
       .then(() => {
-        state.feeds.push(inputData);
-        state.uiState.status = 'valid';
-        state.uiState.error = null;
+        watchedState.feeds.push(inputData);
+        watchedState.uiState.status = 'valid';
+        watchedState.uiState.error = null;
         form.elements.input.value = '';
       })
       .catch((err) => {
-        state.uiState.error = err.message;
-        state.uiState.status = 'invalid';
+        watchedState.uiState.error = err.message;
+        watchedState.uiState.status = 'invalid';
       });
   });
 };
