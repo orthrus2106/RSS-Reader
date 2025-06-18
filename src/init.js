@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import i18nextInstance from 'i18next';
-import createWatchedState from './view';
+import createWatchedState from './renders/view';
 import resources from './locales/index';
 
 export default async () => {
