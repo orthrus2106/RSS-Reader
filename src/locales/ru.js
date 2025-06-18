@@ -10,6 +10,7 @@ export default {
       subtitle: 'Начните читать RSS сегодня! Это легко, это красиво.',
       placeholder: 'Ссылка RSS',
       button: 'Добавить',
+      feeds: 'Фиды',
     },
   },
 };
