@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import i18nextInstance from 'i18next';
 import createWatchedState from './renders/view';
 import resources from './locales/index';
+import loadRss from './loadRss';
 
 export default async () => {
   const state = {
@@ -10,7 +11,11 @@ export default async () => {
       status: 'valid', // invalid, sending
       language: 'ru',
     },
-    feeds: [],
+    urls: [],
+    feeds: [
+    //   { id: 0, title: 'title', description: 'description' },
+    ],
+    posts: [],
   };
   const i18n = i18nextInstance.createInstance();
 
@@ -40,7 +45,7 @@ export default async () => {
     .test(
       'is-invalid',
       'alreadyExists',
-      (value) => !state.feeds.includes(value.trim()),
+      (value) => !state.urls.includes(value.trim()),
     );
 
   const form = document.querySelector('form');
@@ -50,10 +55,14 @@ export default async () => {
     const inputData = formData.get('input').trim();
     schema.validate(inputData)
       .then(() => {
-        watchedState.feeds.push(inputData.trim());
-        watchedState.uiState.status = 'valid';
-        watchedState.uiState.error = null;
-        form.elements.input.value = '';
+        watchedState.uiState.status = 'sending';
+
+        return loadRss(inputData, watchedState)
+          .then(() => {
+            watchedState.urls.push(inputData.trim());
+            watchedState.uiState.status = 'valid';
+            watchedState.uiState.error = null;
+          });
       })
       .catch((err) => {
         watchedState.uiState.error = err.message;
