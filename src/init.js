@@ -8,14 +8,14 @@ export default async () => {
     uiState: {
       error: null,
       status: 'valid', // invalid, sending
+      language: 'ru',
     },
     feeds: [],
-    language: 'ru',
   };
   const i18n = i18nextInstance.createInstance();
 
   await i18n.init({
-    lng: state.language,
+    lng: state.uiState.language,
     debug: false,
     resources,
   });
