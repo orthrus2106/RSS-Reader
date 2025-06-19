@@ -3,6 +3,7 @@ import i18nextInstance from 'i18next';
 import createWatchedState from './renders/view';
 import resources from './locales/index';
 import loadRss from './loadRss';
+import updateRss from './updateRss';
 
 export default async () => {
   const state = {
@@ -11,6 +12,7 @@ export default async () => {
       status: 'valid', // invalid, sending
       language: 'ru',
     },
+    updateTime: 5000, // every 5 seconds
     urls: [],
     feeds: [
     //   { id: 0, title: 'title', description: 'description' },
@@ -73,4 +75,6 @@ export default async () => {
         watchedState.uiState.status = 'invalid';
       });
   });
+
+  setTimeout((updateRss(watchedState)), state.updateTime);
 };
