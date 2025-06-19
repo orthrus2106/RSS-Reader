@@ -10,7 +10,7 @@ export default {
       subtitle: 'Start reading RSS today! It’s easy, it’s beautiful.',
       placeholder: 'RSS link',
       button: 'Add',
-      feeds: 'Feeds',
+      posts: 'Posts',
     },
   },
 };

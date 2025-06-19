@@ -11,6 +11,7 @@ export default {
       placeholder: 'Ссылка RSS',
       button: 'Добавить',
       feeds: 'Фиды',
+      posts: 'Посты',
     },
   },
 };
