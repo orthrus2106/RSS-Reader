@@ -11,6 +11,7 @@ export default {
       placeholder: 'RSS link',
       button: 'Add',
       posts: 'Posts',
+      postButton: 'See more',
     },
   },
 };

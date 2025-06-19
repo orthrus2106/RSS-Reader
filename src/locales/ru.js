@@ -12,6 +12,7 @@ export default {
       button: 'Добавить',
       feeds: 'Фиды',
       posts: 'Посты',
+      postButton: 'Просмотр',
     },
   },
 };
