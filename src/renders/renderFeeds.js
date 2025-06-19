@@ -13,7 +13,6 @@ export default (state, i18n) => {
   h2.textContent = i18n.t('elements.feeds');
 
   cardBody.append(h2);
-    console.log('it is render')
   const ul = document.createElement('ul');
   container.append(cardBody, ul);
   ul.classList.add('list-group', 'border-0', 'rounded-0');
