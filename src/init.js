@@ -60,7 +60,9 @@ export default async () => {
         watchedState.uiState.status = 'sending';
 
         return loadRss(inputData, watchedState)
-          .then(() => {
+          .then(({ feed, posts }) => {
+            watchedState.feeds.push(feed);
+            watchedState.posts.push(...posts);
             watchedState.urls.push(inputData.trim());
             watchedState.uiState.status = 'valid';
             watchedState.uiState.error = null;

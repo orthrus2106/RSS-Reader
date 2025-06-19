@@ -9,33 +9,39 @@ const formatUrl = (url) => {
   return proxyUrl.href.toString();
 };
 
-const parseRss = (data, watchedState) => {
-  try {
-    const newParser = new DOMParser();
-    const doc = newParser.parseFromString(data, 'application/xml');
-    const title = doc.querySelector('title').textContent;
-    const description = doc.querySelector('description').textContent;
-    const feedId = _.uniqueId('feed-');
-    watchedState.feeds.push({ id: feedId, title, description });
-    const items = doc.querySelectorAll('item');
-    items.forEach((item) => {
-      const postTitle = item.querySelector('title').textContent;
-      const postLink = item.querySelector('link').textContent;
-      const postDescription = item.querySelector('description').textContent;
-      const postId = _.uniqueId('post-');
-      watchedState.posts.push({
-        id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
-      });
-    });
-    // console.log(watchedState.posts);
-  } catch (err) {
-    throw new Error(err);
-  }
+const parseRss = (data) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(data, 'application/xml');
+
+  const feedTitle = doc.querySelector('title').textContent;
+  const feedDescription = doc.querySelector('description').textContent;
+  const feedId = _.uniqueId('feed-');
+
+  const feed = {
+    id: feedId,
+    title: feedTitle,
+    description: feedDescription,
+  };
+
+  const items = [...doc.querySelectorAll('item')];
+  const posts = items.map((item) => {
+    const postTitle = item.querySelector('title').textContent;
+    const postLink = item.querySelector('link').textContent;
+    const postDescription = item.querySelector('description').textContent;
+    const postId = _.uniqueId('post-');
+    return {
+      id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
+    };
+  });
+
+  return { feed, posts };
 };
 
-export default (url, watchedState) => axios.get(formatUrl(url))
+export default (url) => axios.get(formatUrl(url))
   .then((response) => {
     const xml = response.data.contents;
-    const parsingData = parseRss(xml, watchedState);
-    return parsingData;
+    return parseRss(xml);
+  })
+  .catch(() => {
+    throw new Error('networkError');
   });

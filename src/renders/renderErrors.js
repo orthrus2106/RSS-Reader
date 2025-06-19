@@ -19,6 +19,9 @@ export default (path, value, i18n) => {
     case ('alreadyExists'):
       feedBack.textContent = i18n.t('errors.alreadyExists');
       break;
+    case ('networkError'):
+      feedBack.textContent = i18n.t('errors.networkError');
+      break;
     default:
       throw new Error('## unknown error');
   }
