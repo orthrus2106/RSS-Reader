@@ -15,7 +15,9 @@ export default async () => {
     feeds: [
     //   { id: 0, title: 'title', description: 'description' },
     ],
-    posts: [],
+    posts: [
+    //   { id: 0, feedId: feed-1, title: title, link: link , description: 'description'},
+    ],
   };
   const i18n = i18nextInstance.createInstance();
 

@@ -15,8 +15,19 @@ const parseRss = (data, watchedState) => {
     const doc = newParser.parseFromString(data, 'application/xml');
     const title = doc.querySelector('title').textContent;
     const description = doc.querySelector('description').textContent;
-    watchedState.feeds.push({ id: _.uniqueId('feed-'), title, description });
-    // console.log(doc);
+    const feedId = _.uniqueId('feed-');
+    watchedState.feeds.push({ id: feedId, title, description });
+    const items = doc.querySelectorAll('item');
+    items.forEach((item) => {
+      const postTitle = item.querySelector('title').textContent;
+      const postLink = item.querySelector('link').textContent;
+      const postDescription = item.querySelector('description').textContent;
+      const postId = _.uniqueId('post-');
+      watchedState.posts.push({
+        id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
+      });
+    });
+    // console.log(watchedState.posts);
   } catch (err) {
     throw new Error(err);
   }
