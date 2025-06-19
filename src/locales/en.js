@@ -4,6 +4,7 @@ export default {
       required: 'This field is required',
       invalidUrl: 'The link must be a valid URL',
       alreadyExists: 'RSS already exists',
+      networkError: 'Network error. Try later',
     },
     elements: {
       title: 'RSS Aggregator',

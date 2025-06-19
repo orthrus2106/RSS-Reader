@@ -4,6 +4,7 @@ export default {
       required: 'Обязательное поле',
       invalidUrl: 'Ссылка должна быть валидным URL',
       alreadyExists: 'RSS уже существует',
+      networkError: 'Ошибка сети',
     },
     elements: {
       title: 'RSS агрегатор',
