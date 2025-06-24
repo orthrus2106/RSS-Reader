@@ -9,7 +9,7 @@ export default async () => {
   const state = {
     uiState: {
       error: null,
-      status: 'valid', // invalid, sending
+      status: '', // valid, invalid, sending
       language: 'ru',
       openedPostId: 0,
       watchedPosts: [],
