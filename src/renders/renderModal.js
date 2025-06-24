@@ -1,4 +1,4 @@
-export default (state, i18n) => {
+export default (state) => {
   const title = document.querySelector('#modalLabel');
   const body = document.querySelector('#modalBody');
   const button = document.querySelector('#readButton');

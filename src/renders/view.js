@@ -19,6 +19,6 @@ export default (state, i18n) => onChange(state, (path, value) => {
     renderPosts(state, i18n);
   }
   if (path === 'uiState.openedPostId') {
-    renderModal(state, i18n);
+    renderModal(state);
   }
 });
