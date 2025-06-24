@@ -26,6 +26,9 @@ export default (state, value, i18n) => {
     case ('networkError'):
       feedBack.textContent = i18n.t('errors.networkError');
       break;
+    case ('invalidRss'):
+      feedBack.textContent = i18n.t('errors.invalidRss');
+      break;
     default:
       throw new Error('## unknown error');
   }
