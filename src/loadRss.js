@@ -12,9 +12,8 @@ const formatUrl = (url) => {
 const parseRss = (data) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data, 'application/xml');
-
-  const parserError = doc.querySelector('parsererror');
-  if (parserError) {
+  const parserError = doc.querySelector('rss');
+  if (!parserError) {
     const err = new Error('invalidRss');
     err.name = 'invalidRss';
     throw err;
@@ -49,6 +48,9 @@ export default (url) => axios.get(formatUrl(url))
     const xml = response.data.contents;
     return parseRss(xml);
   })
-  .catch(() => {
+  .catch((err) => {
+    if (err.name === 'invalidRss') {
+      throw err;
+    }
     throw new Error('networkError');
   });
