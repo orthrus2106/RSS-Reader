@@ -10,7 +10,7 @@ export default (state, i18n) => onChange(state, (path, value) => {
     renderErrors(state, value, i18n);
   }
   if (path === 'uiState.status') {
-    statusHandler(path, value, i18n);
+    statusHandler(value, i18n);
   }
   if (path === 'feeds') {
     renderFeeds(state, i18n);

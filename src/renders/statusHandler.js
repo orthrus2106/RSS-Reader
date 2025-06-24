@@ -1,4 +1,4 @@
-export default (path, value, i18n) => {
+export default (value, i18n) => {
   const feedBack = document.querySelector('#feedback');
   const button = document.querySelector('#add-button');
   const form = document.querySelector('form');
