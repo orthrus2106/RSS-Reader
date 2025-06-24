@@ -10,38 +10,38 @@ const formatUrl = (url) => {
 };
 
 const parseRss = (data) => {
-  try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(data, 'application/xml');
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(data, 'application/xml');
 
-    const feedTitle = doc.querySelector('title').textContent;
-    const feedDescription = doc.querySelector('description').textContent;
-    const feedId = _.uniqueId('feed-');
-
-    const feed = {
-      id: feedId,
-      title: feedTitle,
-      description: feedDescription,
-    };
-
-    const items = [...doc.querySelectorAll('item')];
-    const posts = items.map((item) => {
-      const postTitle = item.querySelector('title').textContent;
-      const postLink = item.querySelector('link').textContent;
-      const postDescription = item.querySelector('description').textContent;
-      const postId = _.uniqueId('post-');
-      return {
-        id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
-      };
-    });
-
-    return { feed, posts };
-  } catch (error) {
-    const err = new Error();
+  const parserError = doc.querySelector('parsererror');
+  if (parserError) {
+    const err = new Error('invalidRss');
     err.name = 'invalidRss';
-
     throw err;
   }
+
+  const feedTitle = doc.querySelector('title').textContent;
+  const feedDescription = doc.querySelector('description').textContent;
+  const feedId = _.uniqueId('feed-');
+
+  const feed = {
+    id: feedId,
+    title: feedTitle,
+    description: feedDescription,
+  };
+
+  const items = [...doc.querySelectorAll('item')];
+  const posts = items.map((item) => {
+    const postTitle = item.querySelector('title').textContent;
+    const postLink = item.querySelector('link').textContent;
+    const postDescription = item.querySelector('description').textContent;
+    const postId = _.uniqueId('post-');
+    return {
+      id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
+    };
+  });
+
+  return { feed, posts };
 };
 
 export default (url) => axios.get(formatUrl(url))
