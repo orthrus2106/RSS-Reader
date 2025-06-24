@@ -11,6 +11,8 @@ export default async () => {
       error: null,
       status: 'valid', // invalid, sending
       language: 'ru',
+      openedPostId: 0,
+      watchedPosts: [],
     },
     updateTime: 5000, // every 5 seconds
     urls: [],
@@ -18,9 +20,16 @@ export default async () => {
     //   { id: 0, title: 'title', description: 'description' },
     ],
     posts: [
-    //   { id: 0, feedId: feed-1, title: title, link: link , description: 'description'},
+    // {
+    // id: 0,
+    // feedId: feed-1,
+    // title: title,
+    // link: link,
+    // description: 'description'
+    // },
     ],
   };
+
   const i18n = i18nextInstance.createInstance();
 
   await i18n.init({
@@ -74,6 +83,14 @@ export default async () => {
         watchedState.uiState.error = err.message;
         watchedState.uiState.status = 'invalid';
       });
+  });
+  const postsElement = document.querySelector('#posts');
+  postsElement.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.tagName !== 'BUTTON') return;
+    const clickedPostId = e.target.dataset.id;
+    watchedState.uiState.openedPostId = clickedPostId;
+    watchedState.uiState.watchedPosts.push(clickedPostId);
   });
 
   setTimeout((updateRss(watchedState)), state.updateTime);

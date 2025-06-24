@@ -23,7 +23,7 @@ export default (state, i18n) => {
     li.className = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0';
 
     const a = document.createElement('a');
-    a.classList.add('fw-bold');
+    a.classList.add(state.uiState.watchedPosts.includes(post.id) ? 'fw-normal' : 'fw-bold');
     a.textContent = post.title;
     a.setAttribute('href', post.link);
     a.setAttribute('data-id', post.id);
