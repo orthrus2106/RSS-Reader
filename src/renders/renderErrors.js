@@ -1,14 +1,18 @@
-export default (path, value, i18n) => {
+export default (state, value, i18n) => {
   const feedBack = document.querySelector('#feedback');
   const input = document.querySelector('#url-input');
 
   if (!value) {
+    if (state.uiState.status === 'valid') return;
     input.classList.remove('is-invalid');
     feedBack.textContent = '';
     return;
   }
 
   input.classList.add('is-invalid');
+  feedBack.classList.remove('text-success');
+  feedBack.classList.add('text-danger');
+
   switch (value) {
     case 'required':
       feedBack.textContent = i18n.t('errors.required');
