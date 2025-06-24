@@ -1,5 +1,5 @@
 import axios from 'axios';
-import _ from 'lodash';
+import { uniqueId } from 'lodash';
 
 const formatUrl = (url) => {
   const proxyUrl = new URL('https://allorigins.hexlet.app/');
@@ -22,7 +22,7 @@ const parseRss = (data) => {
 
   const feedTitle = doc.querySelector('title').textContent;
   const feedDescription = doc.querySelector('description').textContent;
-  const feedId = _.uniqueId('feed-');
+  const feedId = uniqueId('feed-');
 
   const feed = {
     id: feedId,
@@ -35,7 +35,7 @@ const parseRss = (data) => {
     const postTitle = item.querySelector('title').textContent;
     const postLink = item.querySelector('link').textContent;
     const postDescription = item.querySelector('description').textContent;
-    const postId = _.uniqueId('post-');
+    const postId = uniqueId('post-');
     return {
       id: postId, feedId, title: postTitle, link: postLink, description: postDescription,
     };
