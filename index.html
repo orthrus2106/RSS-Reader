@@ -26,8 +26,8 @@
       <section class="container-fluid bg-dark p-5">
         <div class="row">
           <div class="col-md-10 col-lg-8 mx-auto text-white">
-            <h1 class="display-3 mb-0">RSS агрегатор</h1>
-            <p class="lead">Начните читать RSS сегодня! Это легко, это красиво.</p>
+            <h1 class="display-3 mb-0" id="title">RSS агрегатор</h1>
+            <p class="lead" id="subtitle">Начните читать RSS сегодня! Это легко, это красиво.</p>
             <form action class="rss-form text-body">
               <div class="row">
                 <div class="col">
@@ -42,7 +42,7 @@
                     autofocus
                     class="form-control w-100"
                     placeholder="ссылка RSS">
-                    <label for="url-input">Ссылка RSS</label>
+                    <label for="url-input" id="url-label">Ссылка RSS</label>
                   </div>
                 </div>
                 <div class="col-auto">
@@ -50,11 +50,17 @@
                     <span id="spinner" class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
                     Добавить
                   </button>
+                  <!-- <button class="h-100 btn btn-lg btn-primary px-sm-5 dropdown-toggle" type="button" id="selectLanguageBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    Язык
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="selectLanguage" id="switchLanguage">
+                    <li><a class="dropdown-item" href="#" data-lang="ru">Русский</a></li>
+                    <li><a class="dropdown-item" href="#" data-lang="en">Английский</a></li>
+                  </ul> -->
                 </div>
               </div>
             </form>
-            <p class="mt-2 mb-0 text-muted">Пример: https://lorem-rss.hexlet.app/feed</p>
-            <p class="feedback m-0 position-absolute small text-danger" id="feedback"></p>
+            <p class="feedback m-0 position-absolute small text-danger mt-2" id="feedback"></p>
           </div>
         </div>
       </section>
