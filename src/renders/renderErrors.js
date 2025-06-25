@@ -30,7 +30,7 @@ export default (state, value, i18n) => {
       feedBack.textContent = i18n.t('errors.invalidRss')
       break
     default:
-      throw new Error('## unknown error')
+      throw new Error(`Unknown error ${value}`)
   }
   input.focus()
 }
