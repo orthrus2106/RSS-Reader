@@ -18,6 +18,13 @@ export default {
       feeds: 'Фиды',
       posts: 'Посты',
       postButton: 'Просмотр',
+      emptyPosts: 'Здесь будут посты',
+      emptyFeeds: 'Здесь будут фиды',
     },
+    languages: {
+      langBtn: 'Язык',
+      langRu: 'Русский',
+      langEn: 'Английский',
+    }
   },
 }

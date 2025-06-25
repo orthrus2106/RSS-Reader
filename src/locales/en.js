@@ -11,12 +11,19 @@ export default {
       rssLoaded: 'RSS has been loaded',
     },
     elements: {
-      title: 'RSS Aggregator',
+      title: 'RSS Reader',
       subtitle: 'Start reading RSS today! It’s easy, it’s beautiful.',
       placeholder: 'RSS link',
       button: 'Add',
       posts: 'Posts',
       postButton: 'See more',
+      emptyPosts: 'Here will be posts',
+      emptyFeeds: 'Here will be feeds',
     },
+    languages: {
+      langBtn: 'Language',
+      langRu: 'Russian',
+      langEn: 'English',
+    }
   },
 }
