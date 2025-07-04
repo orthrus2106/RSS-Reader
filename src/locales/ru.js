@@ -21,10 +21,21 @@ export default {
       emptyPosts: 'Здесь будут посты',
       emptyFeeds: 'Здесь будут фиды',
     },
-    languages: {
-      langBtn: 'Язык',
+    postModal: {
+      closePost: 'Закрыть',
+      readPost: 'Читать полностью',
+    },
+    settingsModal: {
+      modalTitle: 'Изменить интервал обновления',
+      modalSubTitle: 'Интервал (в миллисекундах)',
+      closeButton: 'Отмена',
+      saveButton: 'Сохранить',
+    },
+    settings: {
+      settingsBtn: 'Настройки',
       langRu: 'Русский',
       langEn: 'Английский',
-    }
+      setInterval: 'Интервал обновления постов',
+    },
   },
 }

@@ -16,14 +16,26 @@ export default {
       placeholder: 'RSS link',
       button: 'Add',
       posts: 'Posts',
+      feeds: 'Feeds',
       postButton: 'See more',
       emptyPosts: 'Here will be posts',
       emptyFeeds: 'Here will be feeds',
     },
-    languages: {
-      langBtn: 'Language',
+    postModal: {
+      closePost: 'Close',
+      readPost: 'Read more',
+    },
+    settingsModal: {
+      modalTitle: 'Change update interval',
+      modalSubTitle: 'Interval (in ms)',
+      closeButton: 'Cancel',
+      saveButton: 'Save',
+    },
+    settings: {
+      settingsBtn: 'Settings',
       langRu: 'Russian',
       langEn: 'English',
-    }
+      setInterval: 'Interval update posts',
+    },
   },
 }
