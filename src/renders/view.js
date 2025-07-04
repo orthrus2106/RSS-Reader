@@ -4,6 +4,7 @@ import statusHandler from './statusHandler'
 import renderFeeds from './renderFeeds'
 import renderPosts from './renderPosts'
 import renderModal from './renderModal'
+import renderStaticText from './renderStaticText'
 
 export default (state, i18n) => onChange(state, (path, value) => {
   if (path === 'uiState.error') {
@@ -20,5 +21,8 @@ export default (state, i18n) => onChange(state, (path, value) => {
   }
   if (path === 'uiState.openedPostId') {
     renderModal(state)
+  }
+  if (path === 'uiState.language') {
+    renderStaticText(i18n)
   }
 })

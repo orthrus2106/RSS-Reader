@@ -7,6 +7,7 @@
     <title>Hexlet Frontend Project</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
+    <!-- Posts Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -16,54 +17,81 @@
           </div>
           <div class="modal-body" id="modalBody"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-            <a href="#" target="_blank" role="button" class="btn btn-primary" id="readButton">Читать полностью</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="postCloseBtn"></button>
+            <a href="#" target="_blank" role="button" class="btn btn-primary" id="readButton"></a>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal Set Interval -->
+    <div class="modal fade" id="updateIntervalModal" tabindex="-1" aria-labelledby="updateIntervalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form class="modal-content" id="intervalForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateIntervalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            <label for="intervalInput" class="form-label" id="settingsFormLabel"></label>
+            <input type="number" name="input" min="1000" max="100000" class="form-control" id="intervalInput" placeholder="3000" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="settingsCloseBtn"></button>
+            <button type="submit" class="btn btn-primary" id="settingsSaveBtn"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <main class="flex-grow-1">
       <section class="container-fluid bg-dark p-5">
         <div class="row">
           <div class="col-md-10 col-lg-8 mx-auto text-white">
-            <h1 class="display-3 mb-0" id="title">RSS агрегатор</h1>
-            <p class="lead" id="subtitle">Начните читать RSS сегодня! Это легко, это красиво.</p>
-            <form action class="rss-form text-body">
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating">
-                    <input 
-                    type="text" 
-                    id="url-input" 
-                    name="input"
-                    required
-                    autocomplete="off"
-                    aria-label="url"
-                    autofocus
-                    class="form-control w-100"
-                    placeholder="ссылка RSS">
-                    <label for="url-input" id="url-label">Ссылка RSS</label>
+            <h1 class="display-3 mb-0" id="title"></h1>
+            <p class="lead" id="subtitle"></p>
+      
+            <div class="d-flex gap-2">
+              <form class="rss-form text-body flex-grow-1">
+                <div class="row g-2">
+                  <div class="col">
+                    <div class="form-floating">
+                      <input 
+                        type="text"
+                        id="url-input"
+                        name="input"
+                        required
+                        autocomplete="off"
+                        aria-label="url"
+                        autofocus
+                        class="form-control w-100"
+                        placeholder="">
+                      <label for="url-input" id="url-label"></label>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <button class="h-100 btn btn-lg btn-primary px-sm-5" type="submit" id="add-button"></button>
                   </div>
                 </div>
-                <div class="col-auto">
-                  <button class="h-100 btn btn-lg btn-primary px-sm-5" type="submit" id="add-button">
-                    <span id="spinner" class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
-                    Добавить
-                  </button>
-                  <!-- <button class="h-100 btn btn-lg btn-primary px-sm-5 dropdown-toggle" type="button" id="selectLanguageBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                    Язык
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="selectLanguage" id="switchLanguage">
-                    <li><a class="dropdown-item" href="#" data-lang="ru">Русский</a></li>
-                    <li><a class="dropdown-item" href="#" data-lang="en">Английский</a></li>
-                  </ul> -->
-                </div>
+              </form>
+      
+              <div class="dropdown">
+                <button class="h-100 btn btn-lg btn-primary px-sm-5 dropdown-toggle" type="button" id="settingsBtn" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsBtn" id="switchLanguage">
+                  <li><button class="dropdown-item" data-lang="ru"></button></li>
+                  <li><button class="dropdown-item" data-lang="en"></button></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateIntervalModal" id="setInterval"></button>
+                  </li>
+                </ul>
               </div>
-            </form>
+            </div>
+      
             <p class="feedback m-0 position-absolute small text-danger mt-2" id="feedback"></p>
           </div>
         </div>
       </section>
+        
       <section class="container-fluid container-xxl p-5">
         <div class="row">
           <div class="col-md-10 col-lg-8 order-1 mx-auto posts" id="posts"></div>

@@ -4,13 +4,15 @@ import createWatchedState from './renders/view'
 import resources from './locales/index'
 import loadRss from './loadRss'
 import updateRss from './updateRss'
+import renderStaticText from './renders/renderStaticText'
+import * as bootstrap from 'bootstrap'
 
 export default async () => {
   const state = {
     uiState: {
       error: null,
       status: '', // valid, invalid, sending
-      language: 'ru',
+      language: 'en',
       openedPostId: 0,
       watchedPosts: [],
     },
@@ -48,6 +50,7 @@ export default async () => {
   })
 
   const watchedState = createWatchedState(state, i18n)
+
   const schema = yup.string()
     .required(
       'required',
@@ -60,8 +63,12 @@ export default async () => {
       'alreadyExists',
       value => !state.urls.includes(value.trim()),
     )
+  document.addEventListener('DOMContentLoaded', () => {
+    renderStaticText(i18n)
+  })
 
-  const form = document.querySelector('form')
+  const form = document.querySelector('.rss-form')
+
   form.addEventListener('submit', (e) => {
     e.preventDefault()
     const formData = new FormData(form)
@@ -84,7 +91,39 @@ export default async () => {
         watchedState.uiState.status = 'invalid'
       })
   })
+
+  const intervalForm = document.querySelector('#intervalForm')
+  const modalElement = document.querySelector('#updateIntervalModal')
+
+  intervalForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const formData = new FormData(intervalForm)
+    const inputData = formData.get('input').trim()
+    if (inputData <= 1000) return
+    watchedState.updateTime = Number(inputData)
+    const modalInstance = bootstrap.Modal.getInstance(modalElement)
+    if (modalInstance) {
+      modalInstance.hide()
+    }
+  })
+
+  const switchLanguage = document.querySelector('#switchLanguage')
+
+  switchLanguage.addEventListener('click', (e) => {
+    if (e.target.tagName !== 'BUTTON') return
+    const selectedLang = e.target.dataset.lang
+    if (selectedLang === 'ru' || selectedLang === 'en') {
+      i18n.changeLanguage(selectedLang).then(() => {
+        watchedState.uiState.language = selectedLang
+        renderStaticText(i18n)
+      }).catch((err) => {
+        console.error('Error changing language:', err)
+      })
+    }
+  })
+
   const postsElement = document.querySelector('#posts')
+
   postsElement.addEventListener('click', (e) => {
     e.preventDefault()
     if (e.target.tagName !== 'BUTTON') return
